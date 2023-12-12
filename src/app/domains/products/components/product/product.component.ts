@@ -12,9 +12,10 @@ import { Product } from '../../../shared/models/product.model';
 export class ProductComponent {
   @Input({ required: true }) product!: Product;
 
-  @Output() addToCard: EventEmitter<string> = new EventEmitter<string>();
+  @Output() addCart: EventEmitter<Product> = new EventEmitter<any>();
+  @Output() addToCart: EventEmitter<Product> = new EventEmitter<Product>();
 
   addToCartHandler() {
-    this.addToCard.emit('Hello from child');
+    this.addToCart.emit(this.product)
   }
 }
