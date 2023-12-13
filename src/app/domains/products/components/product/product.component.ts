@@ -11,7 +11,6 @@ import { Product } from '../../../shared/models/product.model';
 })
 export class ProductComponent {
   @Input({ required: true }) product!: Product;
-
   @Output() addCart: EventEmitter<Product> = new EventEmitter<any>();
   @Output() addToCart: EventEmitter<Product> = new EventEmitter<Product>();
 

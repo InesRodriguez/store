@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { ProductComponent } from '../../components/product/product.component';
-import { Product } from '../../../shared/models/product.model';
-import { HeaderComponent } from '../../../shared/components/header/header.component';
-import { CartService } from '../../../shared/services/cart.service';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { CartService } from '@shared/services/cart.service';
+import { Product } from '@shared/models/product.model';
+import { ProductComponent } from '@products/components/product/product.component';
+import { ProductService } from '@shared/services/product.service';
 
 @Component({
   selector: 'app-list',
@@ -12,37 +13,19 @@ import { CartService } from '../../../shared/services/cart.service';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   products = signal<Product[]>([]);
   private cartservice = inject(CartService);
-  cart = this.cartservice.cart;
-  constructor() {
-    const initProducts: Product[] = [
-      {
-        id: Date.now() as number,
-        title: 'Prod 1',
-        price: 100,
-        image: `https://picsum.photos/640/640?r=${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: Date.now() as number,
-        title: 'Prod 2',
-        price: 100,
-        image: `https://picsum.photos/640/640?r=${Math.random()}`,
-        creationAt: new Date().toISOString()
-      },
-      {
-        id: Date.now() as number,
-        title: 'Prod 3',
-        price: 100,
-        image: `https://picsum.photos/640/640?r=${Math.random()}`,
-        creationAt: new Date().toISOString()
-      }
-    ];
-    this.products.set(initProducts);
-  }
+  private productService = inject(ProductService);
 
+  ngOnInit() {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products.set(products);
+      },
+      error: () => {}
+    });
+  }
   addToCart(event: any) {
     const product = event as Product;
     this.cartservice.addToCart(product);
