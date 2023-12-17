@@ -16,7 +16,7 @@ import { RouterLinkWithHref } from '@angular/router';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent implements OnInit, OnChanges {
+export default class ListComponent implements OnInit, OnChanges {
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
   private cartservice = inject(CartService);
