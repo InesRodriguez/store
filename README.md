@@ -1,6 +1,6 @@
 # Store
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6 and tailwind css.
 ## Demo 
 https://store-k0wpe6yyg-ines-rodriguezs-projects.vercel.app/
 ## Development server
